@@ -1,1 +1,4 @@
+User-agent: *
+Allow: /
 
+Sitemap: https://portfolio-ampurira.vercel.app/sitemap.xml
