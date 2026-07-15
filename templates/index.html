@@ -34,7 +34,7 @@
 
     <title>Ampurira Philbert | Software Engineer</title>
     <!-- Google Font -->
-    <link rel="icon" href="favicon.png"
+    <link rel="icon" href="{{ url_for('static', filename='css/js/images/favicon.png') }}">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
@@ -42,7 +42,7 @@
     <link rel="stylesheet"
     href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
     <!-- External CSS -->
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
     <!-- structured data -->
      <script type="application/ld+json">
 {
@@ -157,7 +157,7 @@ Hire Me
 
 <div class="hero-image">
 <!-- Replace with your own image -->
-<img src="philbert.jpg"
+<img src="{{ url_for('static', filename='css/js/images/philbert.jpg') }}"
 alt="Ampurira Philbert">
 </div>
 
@@ -174,7 +174,7 @@ alt="Ampurira Philbert">
 
 <div class="about-image">
 
-<img src="portfolio.png"
+<img src="{{ url_for('static', filename='css/js/images/portfolio.png') }}"
 alt="About Image">
 
 </div>
@@ -447,8 +447,7 @@ Helping troubleshoot software, website, and database-related issues.
 <div class="project-card">
 
 
-<img src="e_learning.jpg"
-alt="Student Management System">
+<img src="{{ url_for('static', filename='css/js/images/e_learning.jpg') }}" alt="Student Management System">
 
 
 <div class="project-content">
@@ -484,9 +483,7 @@ Live Demo
 <!-- PROJECT 2 -->
 <div class="project-card">
 
-<img src="library.png"
-alt="Library System">
-
+<img src="{{ url_for('static', filename='css/js/images/library.png') }}" alt="Library System">
 <div class="project-content">
 
 <h3>Library Management System</h3>
@@ -520,8 +517,7 @@ Live Demo
 <!-- PROJECT 3 -->
 <div class="project-card">
 
-<img src="inventory1.jpg"
-alt="Inventory System">
+<img src="{{ url_for('static', filename='css/js/images/inventory1.jpg') }}" alt="Inventory System">
 
 
 <div class="project-content">
@@ -556,7 +552,7 @@ Live Demo
 <!-- PROJECT 4 -->
 <div class="project-card">
 
-<img src="banking.png"
+<img src="{{ url_for('static', filename='css/js/images/banking.png') }}"
 alt="Banking System">
 
 <div class="project-content">
@@ -589,9 +585,7 @@ Live Demo
 <!-- PROJECT 5 -->
 <div class="project-card">
 
-<img src="portfolio1.png"
-alt="Portfolio Website">
-
+<img src="{{ url_for('static', filename='css/js/images/portfolio1.png') }}" alt="Portfolio Website">
 <div class="project-content">
 
 <h3>Personal Portfolio</h3>
@@ -620,7 +614,7 @@ Live Demo
 <!-- PROJECT 6 -->
 <div class="project-card">
 
-    <img src="weather.png"
+    <img src="{{ url_for('static', filename='css/js/images/weather.png') }}"
 alt="Weather App">
 
 <div class="project-content">
@@ -658,7 +652,7 @@ Live Demo
 
 <!-- PROJECT 7 -->
 <div class="project-card">
-<img src="expense_tracker.jpeg" alt="Expense Tracker">
+<img src="{{ url_for('static', filename='css/js/images/expense_tracker.jpeg') }}" alt="Expense Tracker">
 <div class="project-content">
 
 <h3>Expense Tracker</h3>
@@ -683,7 +677,7 @@ JavaScript • Local Storage • CSS
 <!-- PROJECT 8 -->
 <div class="project-card">
 
-<img src="calc.jpg" alt="Calculator">
+<img src="{{ url_for('static', filename='css/js/images/calc.jpg') }}" alt="Calculator">
 
 <div class="project-content">
 
@@ -709,7 +703,7 @@ HTML • CSS • JavaScript
 <!-- PROJECT 9 -->
 <div class="project-card">
 
-<img src="quiz_app.jpg" alt="Quiz Application">
+<img src="{{ url_for('static', filename='css/js/images/quiz_app.jpg') }}" alt="Quiz Application">
 
 <div class="project-content">
 
@@ -735,7 +729,7 @@ JavaScript • JSON • CSS
 <!-- PROJECT 10 -->
 <div class="project-card">
 
-<img src="e_commerce.jpeg" alt="Ecommerce Website">
+<img src="{{ url_for('static', filename='css/js/images/e_commerce.jpeg') }}" alt="Ecommerce Website">
 
 <div class="project-content">
 
@@ -762,7 +756,7 @@ HTML • CSS • JavaScript
 
 <div class="project-card">
 
-<img src="restaurant.png" alt="Restaurant Website">
+<img src="{{ url_for('static', filename='css/js/images/restaurant.png') }}" alt="Restaurant Website">
 
 <div class="project-content">
 
@@ -788,7 +782,7 @@ HTML • CSS • JavaScript
 <!-- PROJECT 12 -->
 <div class="project-card">
 
-<img src="pay_roll.png" alt="Payroll System">
+<img src="{{ url_for('static', filename='css/js/images/pay_roll.png') }}" alt="Employee Payroll System">
 
 <div class="project-content">
 
@@ -906,70 +900,37 @@ frameworks, databases, and software development practices.
 </section>
 
 <!-- ================= CONTACT SECTION ================= -->
-<section class="contact section" id="contact">
+<form class="contact-form" action="/contact" method="POST">
 
-<div class="section-title">
-<h2>Contact Me</h2>
-<p>Let's Work Together</p>
-</div>
+    <input
+        type="text"
+        name="name"
+        placeholder="Your Name"
+        required>
 
-<div class="contact-container">
-<div class="contact-info">
+    <input
+        type="email"
+        name="email"
+        placeholder="Your Email"
+        required>
 
-<div>
-<i class="fas fa-envelope"></i>
-<h3>Email</h3>
+    <input
+        type="text"
+        name="subject"
+        placeholder="Subject"
+        required>
 
-<p>
-ampuriraphilbert@gmail.com
-</p>
-</div>
+    <textarea
+        name="message"
+        rows="6"
+        placeholder="Your Message"
+        required></textarea>
 
-<div>
-<i class="fas fa-user-graduate"></i>
-<h3>Institution</h3>
-
-<p>
-Uganda Institute of Information and Communications Technology<br>New Portbell road Nakawa
-</p>
-</div>
-
-<div>
-
-<i class="fas fa-code"></i>
-
-<h3>Role</h3>
-
-<p>
-Software Engineer
-</p>
-
-</div>
-
-
-
-</div>
-
-<form class="contact-form">
-
-<input type="text" placeholder="Your Name" required>
-
-<input type="email" placeholder="Your Email" required>
-
-<input type="text" placeholder="Subject">
-
-<textarea rows="6" placeholder="Your Message"></textarea>
-
-<button type="submit" class="btn primary-btn">
-Send Message
-
-</button>
+    <button type="submit" class="btn primary-btn">
+        Send Message
+    </button>
 
 </form>
-
-</div>
-
-</section>
 
 <!-- ================= FOOTER ================= -->
 <footer>
@@ -1033,7 +994,7 @@ Send Message
 <i class="fas fa-arrow-up"></i>
 </button>
 
-<script src="script.js"></script>
+<script src="{{ url_for('static', filename='css/js/script.js') }}"></script>
 
 </body>
 </html>

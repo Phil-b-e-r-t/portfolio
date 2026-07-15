@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<meta charset="UTF-8">
+
+<title>Admin Dashboard</title>
+
+<link rel="stylesheet"
+href="{{ url_for('static',filename='css/admin.css') }}">
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+
+</head>
+
+<body>
+
+<div class="dashboard">
+
+<div class="sidebar">
+
+<h2 class="logo">SOFTWARE SOLUTIONS CENTRE</h2>
+
+<ul>
+
+<li><a href="#"><i class="fas fa-home"></i> Dashboard</a></li>
+
+<li><a href="#"><i class="fas fa-envelope"></i> Messages</a></li>
+
+<li><a href="#"><i class="fas fa-chart-line"></i> Analytics</a></li>
+
+<li><a href="#"><i class="fas fa-cog"></i> Settings</a></li>
+
+<li><a href="{{ url_for('logout') }}"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
+
+</ul>
+
+</div>
+
+<div class="main">
+
+<div class="header">
+
+<h1>Admin Dashboard</h1>
+
+</div>
+
+<div class="cards">
+
+<div class="card">
+
+<h3>Total Messages</h3>
+
+<h1>{{ messages|length }}</h1>
+
+</div>
+
+<div class="card">
+
+<h3>Unread</h3>
+
+<h1>{{ messages|length }}</h1>
+
+</div>
+
+<div class="card">
+
+<h3>Today's Messages</h3>
+
+<h1>0</h1>
+
+</div>
+
+<div class="card">
+
+<h3>Visitors</h3>
+
+<h1>0</h1>
+
+</div>
+
+</div>
+
+<form method="GET" action="{{ url_for('admin') }}" style="margin-bottom:25px;">
+
+<input
+type="text"
+name="search"
+placeholder="Search by Name, Email or Subject"
+value="{{ search or '' }}"
+style="
+width:350px;
+padding:12px;
+border-radius:8px;
+border:1px solid #ccc;
+">
+
+<button class="btn view">
+
+Search
+
+</button>
+
+<a
+href="{{ url_for('admin') }}"
+class="btn delete">
+
+Clear
+
+</a>
+
+</form>
+
+<div class="table-box">
+
+<h2>Recent Messages</h2>
+
+<br>
+
+<table>
+
+<tr>
+
+<th>Name</th>
+
+<th>Email</th>
+
+<th>Subject</th>
+
+<th>Date</th>
+
+<th>Actions</th>
+
+</tr>
+
+{% for message in messages %}
+
+<tr>
+
+<td>{{ message.name }}</td>
+
+<td>{{ message.email }}</td>
+
+<td>{{ message.subject }}</td>
+
+<td>{{ message.created_at.strftime("%d %b %Y") }}</td>
+
+<td>
+
+<a href="{{ url_for('view_message', id=message.id) }}" class="btn view">
+    View
+</a>
+
+<a
+href="{{ url_for('delete_message', id=message.id) }}"
+class="btn delete"
+onclick="return confirm('Are you sure you want to delete this message?');">
+
+Delete
+
+</a>
+
+</td>
+
+</tr>
+
+{% endfor %}
+
+</table>
+
+</div>
+
+</div>
+
+</div>
+
+</body>
+
+</html>
