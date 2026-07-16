@@ -152,3 +152,29 @@ tr:nth-child(even){
     background:#dc2626;
     color:white;
 }
+
+.card:nth-child(1){
+    border-left:6px solid #2563eb;
+}
+
+.card:nth-child(2){
+    border-left:6px solid #dc2626;
+}
+
+.card:nth-child(3){
+    border-left:6px solid #16a34a;
+}
+
+.card:nth-child(4){
+    border-left:6px solid #ca8a04;
+}
+
+canvas{
+
+    max-width:450px;
+
+    margin:auto;
+
+    display:block;
+
+}

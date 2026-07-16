@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<>
 
 <head>
 
@@ -15,7 +15,7 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
 
 </head>
 
-<body>
+<>
 
 <div class="dashboard">
 
@@ -49,37 +49,45 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
 
 <div class="cards">
 
-<div class="card">
+    <div class="card">
+        <h3>Total Messages</h3>
+        <h1>{{ total_messages }}</h1>
+    </div>
 
-<h3>Total Messages</h3>
+    <div class="card">
+        <h3>Unread</h3>
+        <h1>{{ unread_messages }}</h1>
+    </div>
 
-<h1>{{ messages|length }}</h1>
+    <div class="card">
+        <h3>Read</h3>
+        <h1>{{ read_messages }}</h1>
+    </div>
 
-</div>
-
-<div class="card">
-
-<h3>Unread</h3>
-
-<h1>{{ messages|length }}</h1>
-
-</div>
-
-<div class="card">
-
-<h3>Today's Messages</h3>
-
-<h1>0</h1>
+    <div class="card">
+        <h3>Today's Messages</h3>
+        <h1>{{ today_messages }}</h1>
+    </div>
 
 </div>
 
-<div class="card">
+<div class="table-box">
 
-<h3>Visitors</h3>
+    <h2>Messages Overview</h2>
 
-<h1>0</h1>
+    <br>
 
-</div>
+    <input
+        type="hidden"
+        id="readCount"
+        value="{{ read_messages }}">
+
+    <input
+        type="hidden"
+        id="unreadCount"
+        value="{{ unread_messages }}">
+
+    <canvas id="statusChart"></canvas>
 
 </div>
 
@@ -175,6 +183,9 @@ Delete
 </div>
 
 </div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="{{ url_for('static', filename='js/admin.js') }}"></script>
 
 </body>
 
