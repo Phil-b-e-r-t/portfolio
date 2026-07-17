@@ -18,12 +18,15 @@ class Config:
     )
 
     SQLALCHEMY_ENGINE_OPTIONS = {
-        "connect_args": {
-            "ssl": {
-                "ca": os.path.join(BASE_DIR, "certs", "ca.pem")
-            }
+    "pool_pre_ping": True,
+    "pool_recycle": 300,
+    "connect_args": {
+        "ssl": {
+            "ca": os.path.join(BASE_DIR, "certs", "ca.pem")
         }
     }
+}
+
 
     SQLALCHEMY_TRACK_MODIFICATIONS = False
 
