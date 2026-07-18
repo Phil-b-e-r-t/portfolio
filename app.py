@@ -4,27 +4,35 @@ from config import Config
 from models.message import db, Message
 from models.admin import Admin
 from flask_mail import Mail, Message as MailMessage
+import traceback
 
 app = Flask(__name__)
-mail = Mail()
-app.secret_key = Config.SECRET_KEY
 app.config.from_object(Config)
+app.secret_key = Config.SECRET_KEY
+
+db.init_app(app)
+
+mail = Mail(app)
 
 print("MAIL SERVER:", app.config.get("MAIL_SERVER"))
 print("MAIL USER:", app.config.get("MAIL_USERNAME"))
 print("MAIL PORT:", app.config.get("MAIL_PORT"))
 
-db.init_app(app)
-mail.init_app(app)
-
 with app.app_context():
     db.create_all()
 
 
+# -----------------------------
+# Home Page
+# -----------------------------
 @app.route("/")
 def home():
     return render_template("index.html")
 
+
+# -----------------------------
+# Contact Form
+# -----------------------------
 @app.route("/contact", methods=["POST"])
 def contact():
 
@@ -33,7 +41,7 @@ def contact():
     subject = request.form["subject"]
     message = request.form["message"]
 
-    # Save message to the database
+    # Save message
     new_message = Message(
         name=name,
         email=email,
@@ -44,9 +52,7 @@ def contact():
     db.session.add(new_message)
     db.session.commit()
 
-    # -----------------------------
-    # Email to YOU
-    # -----------------------------
+    # Email to Admin
     admin_email = MailMessage(
         subject=f"New Portfolio Message: {subject}",
         recipients=["ampuriraphilbert@gmail.com"]
@@ -66,11 +72,7 @@ Message:
 {message}
 """
 
-    mail.send(admin_email)
-
-    # -----------------------------
-    # Auto Reply to Visitor
-    # -----------------------------
+    # Auto Reply
     reply = MailMessage(
         subject="Thank you for contacting Ampurira Philbert",
         recipients=[email]
@@ -92,10 +94,26 @@ Software Engineer
 Uganda Institute of Information and Communications Technology (UICT)
 """
 
-    mail.send(reply)
+    # Send emails
+    try:
+        print("Sending admin email...")
+        mail.send(admin_email)
+
+        print("Sending auto reply...")
+        mail.send(reply)
+
+        print("Emails sent successfully!")
+
+    except Exception:
+        print("EMAIL ERROR")
+        traceback.print_exc()
 
     return redirect(url_for("home"))
 
+
+# -----------------------------
+# Login
+# -----------------------------
 @app.route("/login", methods=["GET", "POST"])
 def login():
 
@@ -112,6 +130,10 @@ def login():
 
     return render_template("login.html")
 
+
+# -----------------------------
+# Admin Dashboard
+# -----------------------------
 @app.route("/admin")
 def admin():
 
@@ -157,6 +179,10 @@ def admin():
         today_messages=today_messages
     )
 
+
+# -----------------------------
+# View Message
+# -----------------------------
 @app.route("/message/<int:id>")
 def view_message(id):
 
@@ -174,6 +200,10 @@ def view_message(id):
         message=message
     )
 
+
+# -----------------------------
+# Delete Message
+# -----------------------------
 @app.route("/delete/<int:id>")
 def delete_message(id):
 
@@ -188,6 +218,9 @@ def delete_message(id):
     return redirect(url_for("admin"))
 
 
+# -----------------------------
+# Logout
+# -----------------------------
 @app.route("/logout")
 def logout():
 
@@ -195,9 +228,17 @@ def logout():
 
     return redirect(url_for("login"))
 
+
+# -----------------------------
+# Show Registered Routes
+# -----------------------------
 print("\nRegistered Routes:")
 for rule in app.url_map.iter_rules():
     print(rule)
 
+
+# -----------------------------
+# Run App
+# -----------------------------
 if __name__ == "__main__":
     app.run(debug=True)
