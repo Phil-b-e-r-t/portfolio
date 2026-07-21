@@ -37,19 +37,7 @@ class Config:
     SQLALCHEMY_TRACK_MODIFICATIONS = False
 
     # -----------------------------
-    # Mail
+    # Mail (Brevo HTTP API - works on Render free tier, SMTP does not)
     # -----------------------------
-    MAIL_SERVER = "smtp.gmail.com"
-    MAIL_PORT = 587
-
-    MAIL_USE_TLS = True
-    MAIL_USE_SSL = False
-
-    MAIL_USERNAME = os.getenv("MAIL_USERNAME")
-    MAIL_PASSWORD = os.getenv("MAIL_PASSWORD")
-    MAIL_DEFAULT_SENDER = os.getenv("MAIL_USERNAME")
-
-    MAIL_SUPPRESS_SEND = False
-    MAIL_MAX_EMAILS = 1
-    MAIL_ASCII_ATTACHMENTS = False
-    MAIL_TIMEOUT = 10
+    BREVO_API_KEY = os.getenv("BREVO_API_KEY")
+    BREVO_SENDER_EMAIL = os.getenv("BREVO_SENDER_EMAIL")
