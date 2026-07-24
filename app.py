@@ -18,10 +18,7 @@ print("BREVO SENDER:", app.config.get("BREVO_SENDER_EMAIL"))
 with app.app_context():
     db.create_all()
 
-
-# -----------------------------
 # Send email via Brevo API (HTTPS, not blocked by Render's SMTP restriction)
-# -----------------------------
 def send_email(to_email, to_name, subject, text_content):
     url = "https://api.brevo.com/v3/smtp/email"
 
@@ -37,24 +34,21 @@ def send_email(to_email, to_name, subject, text_content):
             "email": app.config.get("BREVO_SENDER_EMAIL")
         },
         "to": [
-            {"email": to_email, "name": to_name}
+            {"email": to_email,
+             "name": to_name}
         ],
         "subject": subject,
         "textContent": text_content
     }
 
-    response = requests.post(url, json=payload, headers=headers, timeout=10)
+    response = requests.post(url, json=payload, headers=headers, timeout=5)
     response.raise_for_status()
     return response
 
-
-# -----------------------------
 # Home Page
-# -----------------------------
 @app.route("/")
 def home():
     return render_template("index.html")
-
 
 # -----------------------------
 # Contact Form
@@ -84,13 +78,9 @@ def contact():
     # Email to Admin
     admin_body = f"""
 You have received a new message from your portfolio.
-
 Name: {name}
-
 Email: {email}
-
 Subject: {subject}
-
 Message:
 
 {message}
@@ -138,7 +128,6 @@ Uganda Institute of Information and Communications Technology (UICT)
         traceback.print_exc()
 
     return redirect(url_for("home"))
-
 
 # -----------------------------
 # Login
